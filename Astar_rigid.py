@@ -6,6 +6,7 @@ Nalin Das (nalindas9@gmail.com)
 Graduate Student pursuing Masters in Robotics,
 University of Maryland, College Park
 """
+import node
 
 def main():
   # Taking the Start Point and Goal Points from the user
@@ -35,6 +36,11 @@ def main():
   theta = eval(input('Enter the angle between the action set for any given node:'))
   print('The angle value you entered is:', theta)
   print('')
+
+  nodel = node.Node([0,0], [10,10], 5)
+  new = nodel.move4()
+  print (new)
+  
   
 if __name__ == '__main__':
   main()
