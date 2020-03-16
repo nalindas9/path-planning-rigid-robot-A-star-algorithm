@@ -6,6 +6,8 @@ Nalin Das (nalindas9@gmail.com)
 Graduate Student pursuing Masters in Robotics,
 University of Maryland, College Park
 """
+import matplotlib.pyplot as plt
+import custom_map
 import node
 
 def main():
@@ -38,9 +40,14 @@ def main():
   print('')
 
   nodel = node.Node([0,0], [10,10], 5)
-  new = nodel.move4()
+  new = nodel.move1()
+  new1 = nodel.move2()
+  new2 = nodel.move3()
+  new3 = nodel.move4()
+  new4 = nodel.move5()
   print (new)
   
+  plt.show()
   
 if __name__ == '__main__':
   main()
