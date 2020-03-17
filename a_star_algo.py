@@ -6,6 +6,9 @@ Nalin Das (nalindas9@gmail.com)
 Graduate Student pursuing Masters in Robotics,
 University of Maryland, College Park
 """
+import numpy as np
+import math
+
 # Function to generate new points
 def new_points(point, clearance, direction):
   if direction == 0:

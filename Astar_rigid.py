@@ -9,6 +9,7 @@ University of Maryland, College Park
 import matplotlib.pyplot as plt
 import custom_map
 import node
+import a_star_algo
 
 def main():
   
@@ -23,14 +24,14 @@ def main():
   
   # Taking the Start Point and Goal Points from the user
   start_point = eval(input('Please enter the start coordinates in this format - [X_coord, Y_coord, Theta]:'))
-  while not check_node(start_point, radius+clearance):
+  while not a_star_algo.check_node(start_point, radius+clearance):
     start_point = eval(input('Please enter the start coordinates in this format - [X_coord, Y_coord, Theta]:'))
   print('The start point you entered is:', start_point)
   print('')
   plt.scatter(start_point[0], start_point[1])
   
   goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
-  while not check_node(start_point, radius+clearance):
+  while not a_star_algo.check_node(goal_point, radius+clearance):
     goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
   print('The goal point you entered is:', goal_point)
   print('')
@@ -53,8 +54,6 @@ def main():
   new3 = nodel.move4()
   new4 = nodel.move5()
   print (new)
-  
-  plt.show()
   
   plt.show()
   
