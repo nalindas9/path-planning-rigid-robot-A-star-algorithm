@@ -8,7 +8,7 @@ University of Maryland, College Park
 """
 import math
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 class Node():
   # Constructor for Node class
@@ -42,4 +42,27 @@ class Node():
     new_node = [self.current_node[0] + 0.5*math.cos(math.radians(-60)), self.current_node[1] + 0.5*math.sin(math.radians(-60))]
     plt.quiver(self.current_node[0], self.current_node[1], new_node[0], new_node[1])
     return new_node
+    
+  # Method that checks if node is visited and adds it to explored nodes if new
+  def add_node(self):
+  
+  # Method that generates valid children given a node
+  def child_generator(self):
+    # List to store all valid children
+    valid_children = []
+    # Generating the children
+    n1 = self.move1()
+    n2 = self.move2()
+    n3 = self.move3()
+    n4 = self.move4()
+    n5 = self.move5()
+    # List to store all children
+    childs = [n1,n2,n3,n4,n5]
+    # Check for valid children and append them to the list
+    for child in childs:
+      if check_node(child):
+        valid_children.append(child)
+        
+    return valid_children
+    
     
