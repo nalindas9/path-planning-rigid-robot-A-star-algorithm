@@ -40,11 +40,7 @@ def main():
   print('')
 
   nodel = node.Node([0,0], [10,10], 5)
-  new = nodel.move1()
-  new1 = nodel.move2()
-  new2 = nodel.move3()
-  new3 = nodel.move4()
-  new4 = nodel.move5()
+  new = nodel.child_generator()
   print (new)
   
   plt.show()

@@ -10,6 +10,9 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
+# 3D array with (x,y,theta) as index
+visited_nodes = np.zeros((600,400,12))
+    
 class Node():
   # Constructor for Node class
   def __init__(self, start_node, parent_node, index):
@@ -43,9 +46,10 @@ class Node():
     plt.quiver(self.current_node[0], self.current_node[1], new_node[0], new_node[1])
     return new_node
     
-  # Method that checks if node is visited and adds it to explored nodes if new
-  def add_node(self):
-  
+  # Method to generate index given a node
+  def index(self, node):
+    return node[0] + node[1]*100
+    
   # Method that generates valid children given a node
   def child_generator(self):
     # List to store all valid children
