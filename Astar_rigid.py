@@ -28,14 +28,16 @@ def main():
     start_point = eval(input('Please enter the start coordinates in this format - [X_coord, Y_coord, Theta]:'))
   print('The start point you entered is:', start_point)
   print('')
-  plt.scatter(start_point[0], start_point[1])
+  start_circle = plt.Circle((start_point[0], start_point[1]), radius= radius+clearance, fc='r')
+  plt.gca().add_patch(start_circle)
   
   goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
   while not a_star_algo.check_node(goal_point, radius+clearance):
     goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
   print('The goal point you entered is:', goal_point)
   print('')
-  plt.scatter(goal_point[0], goal_point[1])
+  goal_circle = plt.Circle((goal_point[0], goal_point[1]), radius= radius+clearance, fc='g')
+  plt.gca().add_patch(goal_circle)
   
   # Taking the step size of movement from the user
   step_size = eval(input('Enter the movement step size:'))
@@ -46,14 +48,6 @@ def main():
   theta = eval(input('Enter the angle between the action set for any given node:'))
   print('The angle value you entered is:', theta)
   print('')
-
-  nodel = node.Node([0,0], [10,10], 5)
-  new = nodel.move1()
-  new1 = nodel.move2()
-  new2 = nodel.move3()
-  new3 = nodel.move4()
-  new4 = nodel.move5()
-  print (new)
   
   plt.show()
   
