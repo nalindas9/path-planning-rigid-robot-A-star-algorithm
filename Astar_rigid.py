@@ -11,14 +11,6 @@ import custom_map
 import node
 
 def main():
-  # Taking the Start Point and Goal Points from the user
-  start_point = eval(input('Please enter the start coordinates in this format - [X_coord, Y_coord, Theta]:'))
-  print('The start point you entered is:', start_point)
-  print('')
-  
-  goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
-  print('The goal point you entered is:', goal_point)
-  print('')
   
   # Taking the obstacle clearance and the robot radius from the user
   clearance = eval(input('Enter the clearance of the robot from the obstacle:'))
@@ -28,7 +20,22 @@ def main():
   radius = eval(input('Enter the robot radius:'))
   print('The radius value you entered is:', radius)
   print('')
-
+  
+  # Taking the Start Point and Goal Points from the user
+  start_point = eval(input('Please enter the start coordinates in this format - [X_coord, Y_coord, Theta]:'))
+  while not check_node(start_point, radius+clearance):
+    start_point = eval(input('Please enter the start coordinates in this format - [X_coord, Y_coord, Theta]:'))
+  print('The start point you entered is:', start_point)
+  print('')
+  plt.scatter(start_point[0], start_point[1])
+  
+  goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
+  while not check_node(start_point, radius+clearance):
+    goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
+  print('The goal point you entered is:', goal_point)
+  print('')
+  plt.scatter(goal_point[0], goal_point[1])
+  
   # Taking the step size of movement from the user
   step_size = eval(input('Enter the movement step size:'))
   print('The step size value you entered is:', step_size)
@@ -46,6 +53,8 @@ def main():
   new3 = nodel.move4()
   new4 = nodel.move5()
   print (new)
+  
+  plt.show()
   
   plt.show()
   
