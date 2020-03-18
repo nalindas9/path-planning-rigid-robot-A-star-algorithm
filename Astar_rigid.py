@@ -52,9 +52,8 @@ def main():
   print('')
 
   s1 = node.Node(start_point, [0,0], 1, radius+clearance)
-  a_star_algo.astar(s1, goal_point, 1)
-  print ('The Valid children are:', new)
-  
+  s1.astar(goal_point)
+
   plt.show()
   
 if __name__ == '__main__':

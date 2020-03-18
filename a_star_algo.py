@@ -145,10 +145,10 @@ def check_node(node, clearance):
     return False
   else:
     return True
-
+"""
 def astar(start_node, goal_node, step_size):
   explored_nodes = [start_node]
-  
+  print('Startnode is:', start_node)
   while len(explored_nodes) > 0:
     c1 = explored_nodes[0]
     print('C1 is:', c1)
@@ -161,5 +161,5 @@ def astar(start_node, goal_node, step_size):
       break
   print('The explored nodes were:', explored_nodes)
   print('')
-      
+"""      
   
