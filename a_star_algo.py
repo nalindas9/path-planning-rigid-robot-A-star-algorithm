@@ -8,6 +8,7 @@ University of Maryland, College Park
 """
 import numpy as np
 import math
+import node
 
 # Function to generate new points
 def new_points(point, clearance, direction):
@@ -145,5 +146,20 @@ def check_node(node, clearance):
   else:
     return True
 
-#def astar(start_node, goal_node, step_size):
+def astar(start_node, goal_node, step_size):
+  explored_nodes = [start_node]
+  
+  while len(explored_nodes) > 0:
+    c1 = explored_nodes[0]
+    print('C1 is:', c1)
+    explored_nodes.pop(0)
+    childs =  c1.child_generator()
+    for child in childs:
+      explored_nodes.append(child)
+    if (c1 == goal_node):
+      print('Goal node found!')
+      break
+  print('The explored nodes were:', explored_nodes)
+  print('')
+      
   

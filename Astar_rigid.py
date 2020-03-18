@@ -7,9 +7,11 @@ Graduate Student pursuing Masters in Robotics,
 University of Maryland, College Park
 """
 import matplotlib.pyplot as plt
+import numpy as np
 import custom_map
-import node
 import a_star_algo
+import node
+
 
 def main():
   
@@ -29,7 +31,7 @@ def main():
   print('The start point you entered is:', start_point)
   print('')
   start_circle = plt.Circle((start_point[0], start_point[1]), radius= radius+clearance, fc='r')
-  plt.gca().add_patch(start_circle)
+  #plt.gca().add_patch(start_circle)
   
   goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
   while not a_star_algo.check_node(goal_point, radius+clearance):
@@ -48,6 +50,10 @@ def main():
   theta = eval(input('Enter the angle between the action set for any given node:'))
   print('The angle value you entered is:', theta)
   print('')
+
+  s1 = node.Node(start_point, [0,0], 1, radius+clearance)
+  a_star_algo.astar(s1, goal_point, 1)
+  print ('The Valid children are:', new)
   
   plt.show()
   
