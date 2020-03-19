@@ -120,28 +120,28 @@ def check_node(node, clearance):
   a15,b15,c15 = eqn(p14,p11)
 
   if node[0] + clearance >= 300 or node[0] - clearance < 0 or node[1] + clearance>= 200 or node[1] - clearance< 0:
-    print('Sorry the point is out of bounds! Try again.')
+    #print('Sorry the point is out of bounds! Try again.')
     return False
   elif (node[0] - 225) ** 2 + (node[1] - 150) ** 2 <= (25+clear_val) ** 2 :
-    print('Sorry the point is in the obstacle space! Try again')
+    #print('Sorry the point is in the obstacle space! Try again')
     return False
   elif ((node[0] - 150) ** 2) / (a+clear_val) ** 2 + ((node[1] - 100) ** 2) / (b+clear_val) ** 2 <= 1:
-    print('Sorry the point is in the obstacle space! Try again')
+    #print('Sorry the point is in the obstacle space! Try again')
     return False
   elif (a1*node[0] + b1*node[1]>=c1) and (a2*node[0] + b2*node[1]>=c2) and (
         a3*node[0] + b3*node[1]>=c3) and (a4*node[0] + b4*node[1]>=c4):
-    print('Sorry the point is in the obstacle space! Try again')
+    #print('Sorry the point is in the obstacle space! Try again')
     return False
   elif (a5*node[0] + b5*node[1]>=c5) and (a6*node[0] + b6*node[1]>=c6) and (
         a7*node[0] + b7*node[1]>=c7) and (a8*node[0] + b8*node[1]>=c8):
-    print('Sorry the point is in the obstacle space! Try again')
+    #print('Sorry the point is in the obstacle space! Try again')
     return False
   # Dividing concave shape into 2 convex shapes
   elif (a10*node[0] + b10*node[1]>=c10) and (a11*node[0] + b11*node[1]>=c11) and (a12*node[0] + b12*node[1]>=c12) and (a13*node[0] + b13*node[1]>=c13):
-    print('Sorry the point is in the obstacle space! Try again')
+    #print('Sorry the point is in the obstacle space! Try again')
     return False
   elif (a10*node[0] + b10*node[1]<=c10) and (a14*node[0] + b14*node[1]>=c14) and (a9*node[0] + b9*node[1]>=c9):
-    print('Sorry the point is in the obstacle space! Try again')
+    #print('Sorry the point is in the obstacle space! Try again')
     return False
   else:
     return True

@@ -31,14 +31,14 @@ def main():
   print('The start point you entered is:', start_point)
   print('')
   start_circle = plt.Circle((start_point[0], start_point[1]), radius= radius+clearance, fc='r')
-  #plt.gca().add_patch(start_circle)
+  plt.gca().add_patch(start_circle)
   
   goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
   while not a_star_algo.check_node(goal_point, radius+clearance):
     goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
   print('The goal point you entered is:', goal_point)
   print('')
-  goal_circle = plt.Circle((goal_point[0], goal_point[1]), radius= radius+clearance, fc='g')
+  goal_circle = plt.Circle((goal_point[0], goal_point[1]), radius= 1.5,fill=False)
   plt.gca().add_patch(goal_circle)
   
   # Taking the step size of movement from the user
@@ -51,8 +51,8 @@ def main():
   print('The angle value you entered is:', theta)
   print('')
 
-  s1 = node.Node(start_point, [0,0], 1, radius+clearance)
-  s1.astar(goal_point)
+  s1 = node.Node(start_point, goal_point, [0,0], 1, radius+clearance)
+  s1.astar()
 
   plt.show()
   
