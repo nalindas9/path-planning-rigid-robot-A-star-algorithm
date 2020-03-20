@@ -21,17 +21,18 @@ valid_childs_dict = {}
 
 class Node():
   # Constructor for Node class
-  def __init__(self, start_node, goal_node, parent_node, clearance):
+  def __init__(self, start_node, goal_node, parent_node, clearance, step_size):
     self.start_node = start_node
     self.parent_node = parent_node
     self.clearance = clearance
     self.goal_node = goal_node
+    self.step_size = step_size
     
   # Defining action set and graph generationb 
   def move1(self,node, cost):
     angle = (node[2] + 60)%360
-    new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
-    cost2come = cost + 1.5
+    new_node = [node[0] + (0.5*math.cos(math.radians(angle)))*self.step_size, node[1] + (0.5*math.sin(math.radians(angle)))*self.step_size, angle]
+    cost2come = cost + 1.5*self.step_size
     cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     total_cost = cost2come + cost2go
     #print('Cost2go 1:', cost2go, 'Cost2come 1:', cost2come)
@@ -41,8 +42,8 @@ class Node():
     
   def move2(self,node, cost):
     angle = (node[2] + 30)%360
-    new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
-    cost2come = cost + 1.3
+    new_node = [node[0] + (0.5*math.cos(math.radians(angle)))*self.step_size, node[1] + (0.5*math.sin(math.radians(angle)))*self.step_size, angle]
+    cost2come = cost + 1.3*self.step_size
     cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     total_cost = cost2come + cost2go
     #print('Cost2go 2:', cost2go, 'Cost2come 2:', cost2come)
@@ -52,8 +53,8 @@ class Node():
     
   def move3(self,node, cost):
     angle = (node[2] + 0)%360
-    new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
-    cost2come = cost + 1
+    new_node = [node[0] + (0.5*math.cos(math.radians(angle)))*self.step_size, node[1] + (0.5*math.sin(math.radians(angle)))*self.step_size, angle]
+    cost2come = cost + 1*self.step_size
     cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     total_cost = cost2come + cost2go
     #print('Cost2go 3:', cost2go, 'Cost2come 3:', cost2come)
@@ -63,8 +64,8 @@ class Node():
     
   def move4(self,node, cost):
     angle = (node[2] -30)%360
-    new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)),angle]
-    cost2come = cost + 1.3
+    new_node = [node[0] + (0.5*math.cos(math.radians(angle)))*self.step_size, node[1] + (0.5*math.sin(math.radians(angle)))*self.step_size,angle]
+    cost2come = cost + 1.3*self.step_size
     cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     #print('Cost2go 4:', cost2go, 'Cost2come 4:', cost2come)
     total_cost = cost2come + cost2go
@@ -74,8 +75,8 @@ class Node():
     
   def move5(self,node, cost):
     angle = (node[2] -60)%360
-    new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
-    cost2come = cost + 1.5
+    new_node = [node[0] + (0.5*math.cos(math.radians(angle)))*self.step_size, node[1] + (0.5*math.sin(math.radians(angle)))*self.step_size, angle]
+    cost2come = cost + 1.5*self.step_size
     cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     #print('Cost2go 5:', cost2go, 'Cost2come 5:', cost2come)
     total_cost = cost2come + cost2go
@@ -99,6 +100,7 @@ class Node():
     n5 = self.move5(node, cost)
     # List to store all children
     childs = [n1,n2,n3,n4,n5]
+    #print('Childs is:', childs)
     # Dictionary with cost as key and child as value
     childs_cost = {n1[3]:n1,n2[3]:n2,n3[3]:n3,n4[3]:n4,n5[3]:n5}
     #print('The Children are:', childs)
@@ -151,7 +153,7 @@ class Node():
           continue
       """
       node_ind = valid_childs_dict[node_ind][2]
-      print('Node index is:', node_ind)
+      #print('Node index is:', node_ind)
     print('The path is:', path)
     return path
     

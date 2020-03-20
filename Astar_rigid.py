@@ -51,11 +51,15 @@ def main():
   print('The angle value you entered is:', theta)
   print('')
 
-  s1 = node.Node(start_point, goal_point, [0,0], radius+clearance)
+  s1 = node.Node(start_point, goal_point, [0,0], radius+clearance, step_size)
   path = s1.astar()
     
-  for point in path:
-    plt.scatter(point[0], point[1], marker='o')
+  for point in range(len(path)):
+    #plt.scatter(point[0], point[1], marker='o')
+    if point+1 < len(path):
+      plt.quiver(np.array((path[point][0])), np.array((path[point][1])), np.array((path[point+1][0])-(path[point][0])), np.array((path[point+1][1])-(path[point][1])), units='xy' ,scale=1)
+    else:
+      plt.quiver(np.array((path[point][0])), np.array((path[point][1])), np.array((path[-1][0])-(path[point][0])), np.array((path[-1][1])-(path[point][1])), units='xy' ,scale=1)
 
   plt.show()
   
