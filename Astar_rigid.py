@@ -45,7 +45,10 @@ def main():
   print('The step size value you entered is:', step_size)
   print('')
   
- 
+   # Taking the step size of movement as the user input.
+  theta = eval(input('Enter the angle between the action set for any given node:'))
+  print('The angle value you entered is:', theta)
+  print('')
   
   plt.show()
   
