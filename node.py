@@ -18,7 +18,7 @@ k = 0
 visited_nodes = np.zeros((600,400,12))
 # Dictionary for backtracking 
 valid_childs_dict = {}
-
+explored = []
 class Node():
   # Constructor for Node class
   def __init__(self, start_node, goal_node, parent_node, clearance, step_size):
@@ -118,6 +118,7 @@ class Node():
 
   def astar(self):
     explored_nodes = [(0, self.start_node, self.index(self.start_node), self.parent_node)]
+    explored.append(self.start_node)
     valid_childs_dict[self.index(self.start_node)] = [self.start_node, self.parent_node]
     cum_cost = 0
     while len(explored_nodes) > 0:
@@ -128,6 +129,7 @@ class Node():
       child_costs= self.child_generator(min_cost_child, cum_cost)
       for child in child_costs:
         explored_nodes.append(child)
+        explored.append(child[1])
       explored_nodes.sort(key=operator.itemgetter(0))
       #print('Sorted Explored Nodes is:', explored_nodes)
       cum_cost = explored_nodes[0][2]
@@ -138,7 +140,7 @@ class Node():
         print('Goal node found!')
         break 
     final_path= self.back_track(final_node_key)
-    return final_path
+    return final_path, explored
         
   def back_track(self, node_ind):
     path = [valid_childs_dict[node_ind][0]]

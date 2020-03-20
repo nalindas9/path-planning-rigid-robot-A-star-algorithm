@@ -71,7 +71,6 @@ t = np.linspace(0, 2*pi, 100)
 plt.plot( u+a*np.cos(t) , v+b*np.sin(t) )
 plt.grid(color='lightgray',linestyle='--')
 
-
 """
 X0 = np.array((0))
 Y0= np.array((0))

@@ -14,7 +14,6 @@ import node
 
 
 def main():
-  
   # Taking the obstacle clearance and the robot radius from the user
   clearance = eval(input('Enter the clearance of the robot from the obstacle:'))
   print('The clearance value you entered is:', clearance)
@@ -30,7 +29,7 @@ def main():
     start_point = eval(input('Please enter the start coordinates in this format - [X_coord, Y_coord, Theta]:'))
   print('The start point you entered is:', start_point)
   print('')
-  start_circle = plt.Circle((start_point[0], start_point[1]), radius= radius+clearance, fc='r')
+  start_circle = plt.Circle((start_point[0], start_point[1]), radius= radius+clearance, fc='g')
   plt.gca().add_patch(start_circle)
   
   goal_point = eval(input('Please enter the goal coordinates in this format - [X_coord, Y_coord, Theta]:'))
@@ -52,16 +51,48 @@ def main():
   print('')
 
   s1 = node.Node(start_point, goal_point, [0,0], radius+clearance, step_size)
-  path = s1.astar()
-    
+  path, explored = s1.astar()
+  
+  print('Explored:', explored)
+  plt.title('Path planning implemented for a Rigid Robot using A* Algorithm',fontsize=10)
+  
+  for point in range(0, 200):
+    #plt.scatter(point[0], point[1], marker='o')
+    if point+1 < len(explored):
+      plt.quiver(np.array((explored[point][0])), np.array((explored[point][1])), np.array((explored[point+1][0])-(explored[point][0])), np.array((explored[point+1][1])-(explored[point][1])), units='xy' ,scale=1, color= 'r', label = 'Explored nodes')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(point) + '.png')
+    else:
+      plt.quiver(np.array((explored[point][0])), np.array((explored[point][1])), np.array((explored[-1][0])-(explored[point][0])), np.array((explored[-1][1])-(explored[point][1])), units='xy' ,scale=1, color= 'r', label = 'Explored nodes')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(point) + '.png')
+  
+  for point in range(200, 49800, 400):
+    #plt.scatter(point[0], point[1], marker='o')
+    if point+1 < len(explored):
+      plt.quiver(np.array((explored[point][0])), np.array((explored[point][1])), np.array((explored[point+1][0])-(explored[point][0])), np.array((explored[point+1][1])-(explored[point][1])), units='xy' ,scale=1, color= 'r', label = 'Explored nodes')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(point) + '.png')
+    else:
+      plt.quiver(np.array((explored[point][0])), np.array((explored[point][1])), np.array((explored[-1][0])-(explored[point][0])), np.array((explored[-1][1])-(explored[point][1])), units='xy' ,scale=1, color= 'r', label = 'Explored nodes')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(point) + '.png')
+
+  for point in range(49800, len(explored), 1):
+    #plt.scatter(point[0], point[1], marker='o')
+    if point+1 < len(explored):
+      plt.quiver(np.array((explored[point][0])), np.array((explored[point][1])), np.array((explored[point+1][0])-(explored[point][0])), np.array((explored[point+1][1])-(explored[point][1])), units='xy' ,scale=1, color= 'r', label = 'Explored nodes')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(point) + '.png')
+    else:
+      plt.quiver(np.array((explored[point][0])), np.array((explored[point][1])), np.array((explored[-1][0])-(explored[point][0])), np.array((explored[-1][1])-(explored[point][1])), units='xy' ,scale=1, color= 'r', label = 'Explored nodes')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(point) + '.png')
+
   for point in range(len(path)):
     #plt.scatter(point[0], point[1], marker='o')
     if point+1 < len(path):
-      plt.quiver(np.array((path[point][0])), np.array((path[point][1])), np.array((path[point+1][0])-(path[point][0])), np.array((path[point+1][1])-(path[point][1])), units='xy' ,scale=1)
+      plt.quiver(np.array((path[point][0])), np.array((path[point][1])), np.array((path[point+1][0])-(path[point][0])), np.array((path[point+1][1])-(path[point][1])), units='xy' ,scale=1, label = 'Final path')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(len(explored)+point) + '.png')
     else:
-      plt.quiver(np.array((path[point][0])), np.array((path[point][1])), np.array((path[-1][0])-(path[point][0])), np.array((path[-1][1])-(path[point][1])), units='xy' ,scale=1)
+      plt.quiver(np.array((path[point][0])), np.array((path[point][1])), np.array((path[-1][0])-(path[point][0])), np.array((path[-1][1])-(path[point][1])), units='xy' ,scale=1, label = 'Final Path')
+      plt.savefig('/home/nalindas9/Documents/Courses/Spring_2020_Semester_2/ENPM661_Planning_For_Autonomous_Robots/Github/Project_3/path-planning-rigid-robot-A-star-algorithm/Images/image' + str(len(explored)+point) + '.png')
 
-  plt.show()
+  #plt.show()
   
 if __name__ == '__main__':
   main()
