@@ -2,6 +2,7 @@
 Path Planning for Rigid Robot using A* Algorithm
 
 Authors:
+Achal Vyas (avyas@umd.edu)
 Nalin Das (nalindas9@gmail.com)
 Graduate Student pursuing Masters in Robotics,
 University of Maryland, College Park
@@ -39,7 +40,7 @@ def main():
   goal_circle = plt.Circle((goal_point[0], goal_point[1]), radius= radius+clearance, fc='g')
   plt.gca().add_patch(goal_circle)
   
-  # Taking the step size of movement from the user
+  # Taking the step size of movement as the user input
   step_size = eval(input('Enter the movement step size:'))
   print('The step size value you entered is:', step_size)
   print('')
