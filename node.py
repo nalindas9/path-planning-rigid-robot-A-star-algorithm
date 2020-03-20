@@ -11,16 +11,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import a_star_algo
 import operator
+import random 
 
+k = 0
 # 3D array with (x,y,theta) as index
 visited_nodes = np.zeros((600,400,12))
-    
+# Dictionary for backtracking 
+valid_childs_dict = {}
+
 class Node():
   # Constructor for Node class
-  def __init__(self, start_node, goal_node, parent_node, index, clearance):
+  def __init__(self, start_node, goal_node, parent_node, clearance):
     self.start_node = start_node
     self.parent_node = parent_node
-    self.index = index
     self.clearance = clearance
     self.goal_node = goal_node
     
@@ -29,7 +32,7 @@ class Node():
     angle = (node[2] + 60)%360
     new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
     cost2come = cost + 1.5
-    cost2go = 3*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
+    cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     total_cost = cost2come + cost2go
     #print('Cost2go 1:', cost2go, 'Cost2come 1:', cost2come)
     new_node.append(total_cost)
@@ -40,7 +43,7 @@ class Node():
     angle = (node[2] + 30)%360
     new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
     cost2come = cost + 1.3
-    cost2go = 3*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
+    cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     total_cost = cost2come + cost2go
     #print('Cost2go 2:', cost2go, 'Cost2come 2:', cost2come)
     new_node.append(total_cost)
@@ -51,7 +54,7 @@ class Node():
     angle = (node[2] + 0)%360
     new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
     cost2come = cost + 1
-    cost2go = 3*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
+    cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     total_cost = cost2come + cost2go
     #print('Cost2go 3:', cost2go, 'Cost2come 3:', cost2come)
     new_node.append(total_cost)
@@ -62,7 +65,7 @@ class Node():
     angle = (node[2] -30)%360
     new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)),angle]
     cost2come = cost + 1.3
-    cost2go = 3*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
+    cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     #print('Cost2go 4:', cost2go, 'Cost2come 4:', cost2come)
     total_cost = cost2come + cost2go
     new_node.append(total_cost)
@@ -73,7 +76,7 @@ class Node():
     angle = (node[2] -60)%360
     new_node = [node[0] + 0.5*math.cos(math.radians(angle)), node[1] + 0.5*math.sin(math.radians(angle)), angle]
     cost2come = cost + 1.5
-    cost2go = 3*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
+    cost2go = 2.8*((self.goal_node[0]-new_node[0])**2 + (self.goal_node[1]-new_node[1])**2)**(1/2)
     #print('Cost2go 5:', cost2go, 'Cost2come 5:', cost2come)
     total_cost = cost2come + cost2go
     new_node.append(total_cost)
@@ -82,7 +85,7 @@ class Node():
     
   # Method to generate index given a node
   def index(self, node):
-    return node[0] + node[1]*100
+    return (node[0], node[1], node[2])
     
   # Method that generates valid children given a node
   def child_generator(self, node, cost):
@@ -105,27 +108,52 @@ class Node():
         #print('The current node is:', (self.current_node[0], self.current_node[1]), 'The child node is:', (child[0], child[1]))
         #plt.quiver(np.array((self.current_node[0])), np.array((self.current_node[1])), np.array((child[0])), np.array((child[1])), units='xy' ,scale=1)
         #plt.scatter(childs_cost[cost][0], childs_cost[cost][1], marker='o')
-        valid_children.append((cost, childs_cost[cost], childs_cost[cost][4]))
+        valid_children.append((cost, childs_cost[cost], childs_cost[cost][4], self.index(childs_cost[cost]),node))
+        valid_childs_dict[self.index(childs_cost[cost])] = [childs_cost[cost], node, self.index(node)]
         visited_nodes[int(round(childs_cost[cost][0],1)/0.5)][int(round(childs_cost[cost][1],1)/0.5)][int(round(childs_cost[cost][2],1)/30)] = 1
         
     return valid_children
 
   def astar(self):
-    explored_nodes = [(0, self.start_node)]
+    explored_nodes = [(0, self.start_node, self.index(self.start_node), self.parent_node)]
+    valid_childs_dict[self.index(self.start_node)] = [self.start_node, self.parent_node]
     cum_cost = 0
     while len(explored_nodes) > 0:
+      #print('Valid Childs dict is:', valid_childs_dict)
       min_cost_child = explored_nodes[0][1]
       print('C1 is:', min_cost_child)
       explored_nodes.pop(0)
-      child_costs = self.child_generator(min_cost_child, cum_cost)
+      child_costs= self.child_generator(min_cost_child, cum_cost)
       for child in child_costs:
         explored_nodes.append(child)
       explored_nodes.sort(key=operator.itemgetter(0))
       #print('Sorted Explored Nodes is:', explored_nodes)
       cum_cost = explored_nodes[0][2]
       if ((min_cost_child[0] - self.goal_node[0]) ** 2 + (min_cost_child[1] - self.goal_node[1]) ** 2) <= 1.5 ** 2:
+        final_node_key =  explored_nodes[0][3]
+        print('The final key is:', final_node_key)
+        #print('The final dict is:', valid_childs_dict)
         print('Goal node found!')
         break 
+    final_path= self.back_track(final_node_key)
+    return final_path
+        
+  def back_track(self, node_ind):
+    path = [valid_childs_dict[node_ind][0]]
+    while node_ind != self.index(self.start_node):
+      parent = valid_childs_dict[node_ind][1]
+      path.insert(0, parent)
+      """
+      for key in valid_childs_dict.keys():
+        if (parent == valid_childs_dict[key][0]):
+          parent_key = key
+        else:
+          continue
+      """
+      node_ind = valid_childs_dict[node_ind][2]
+      print('Node index is:', node_ind)
+    print('The path is:', path)
+    return path
     
     """
     goal_found = False

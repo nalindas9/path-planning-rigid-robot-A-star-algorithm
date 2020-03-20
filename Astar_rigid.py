@@ -51,8 +51,11 @@ def main():
   print('The angle value you entered is:', theta)
   print('')
 
-  s1 = node.Node(start_point, goal_point, [0,0], 1, radius+clearance)
-  s1.astar()
+  s1 = node.Node(start_point, goal_point, [0,0], radius+clearance)
+  path = s1.astar()
+    
+  for point in path:
+    plt.scatter(point[0], point[1], marker='o')
 
   plt.show()
   
