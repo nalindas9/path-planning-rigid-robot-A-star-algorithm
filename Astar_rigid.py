@@ -4,7 +4,7 @@ Path Planning for Rigid Robot using A* Algorithm
 Authors:
 Achal Vyas (avyas@umd.edu)
 Nalin Das (nalindas9@gmail.com)
-Graduate Student pursuing Masters in Robotics,
+Graduate Students pursuing Masters in Robotics,
 University of Maryland, College Park
 """
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ import a_star_algo
 
 def main():
   
-  # Taking the obstacle clearance and the robot radius from the user
+  # Taking the obstacle clearance and the robot radius as the user input.
   clearance = eval(input('Enter the clearance of the robot from the obstacle:'))
   print('The clearance value you entered is:', clearance)
   print('')
@@ -40,15 +40,12 @@ def main():
   goal_circle = plt.Circle((goal_point[0], goal_point[1]), radius= radius+clearance, fc='g')
   plt.gca().add_patch(goal_circle)
   
-  # Taking the step size of movement as the user input
+  # Taking the step size of movement as the user input.
   step_size = eval(input('Enter the movement step size:'))
   print('The step size value you entered is:', step_size)
   print('')
   
-  # Taking the step size of movement from the user
-  theta = eval(input('Enter the angle between the action set for any given node:'))
-  print('The angle value you entered is:', theta)
-  print('')
+ 
   
   plt.show()
   
