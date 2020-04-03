@@ -1,5 +1,5 @@
 # Path Planning for Rigid Robot using A* Algorithm
-This is the repository for the project - Path planning implemented for a Rigid Robot using A* Algorithm.
+This is the  repository for the project - Path planning implemented for a Rigid Robot by making uses of A* Algorithm.
 
 ## System and library requirements.
  - Python3
