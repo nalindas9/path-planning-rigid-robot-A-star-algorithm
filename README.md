@@ -3,7 +3,7 @@
 [![License:MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/nalindas9/path-planning-rigid-robot-A-star-algorithm/blob/master/LICENSE)
  
 ## Authors
-Nalin Das
+Nalin Das, Achal Vyas
 
 ## About
 This is the  repository for the project - Path planning implemented for a Rigid Robot by making use of A* Algorithm. The algorithm is implemented on a 2D Grid Map of size 300x200.
